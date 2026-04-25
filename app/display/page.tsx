@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { BrandSignature } from '../components/BrandSignature';
 import { DisplayOrderCard, type DisplayOrder } from './components/DisplayOrderCard';
 
 interface OrderBoardResponse {
@@ -25,25 +24,32 @@ const BOARD_SECTIONS: Array<{
 }> = [
   {
     status: 'PENDING',
-    title: '1. Commandes recues',
-    subtitle: 'Le client vient de valider. La commande entre dans la file.'
+    title: '1. Recues',
+    subtitle: 'Nouvelles commandes'
   },
   {
     status: 'IN_PROGRESS',
     title: '2. En preparation',
-    subtitle: 'La cuisine travaille deja sur la commande.'
+    subtitle: 'Cuisine active'
   },
   {
     status: 'READY',
-    title: '3. Pretes a servir',
-    subtitle: 'Les plats sont prets. Le service peut les apporter.'
+    title: '3. Pretes',
+    subtitle: 'A servir'
   },
   {
     status: 'COMPLETED',
-    title: '4. Servies recemment',
-    subtitle: 'Historique recent pour rassurer les clients avant disparition de l ecran.'
+    title: '4. Servies',
+    subtitle: 'Historique recent'
   }
 ];
+
+const MAX_VISIBLE_BY_STATUS: Record<DisplayOrder['status'], number> = {
+  PENDING: 3,
+  IN_PROGRESS: 3,
+  READY: 3,
+  COMPLETED: 2
+};
 
 function formatClock(value: Date) {
   return value.toLocaleTimeString('fr-MA', {
@@ -60,7 +66,7 @@ export default function DisplayPage() {
   const [error, setError] = useState<string | null>(null);
   const [generatedAt, setGeneratedAt] = useState<string | null>(null);
   const [liveMessage, setLiveMessage] = useState<DisplayNotification | null>(null);
-  const [clock, setClock] = useState(() => new Date());
+  const [clockLabel, setClockLabel] = useState('--:--:--');
 
   const loadBoard = useCallback(async (background = false) => {
     if (background) {
@@ -101,12 +107,27 @@ export default function DisplayPage() {
   }, [loadBoard]);
 
   useEffect(() => {
-    const ticker = window.setInterval(() => {
-      setClock(new Date());
-    }, 1000);
+    const updateClock = () => {
+      setClockLabel(formatClock(new Date()));
+    };
+
+    updateClock();
+    const ticker = window.setInterval(updateClock, 1000);
 
     return () => {
       window.clearInterval(ticker);
+    };
+  }, []);
+
+  useEffect(() => {
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
     };
   }, []);
 
@@ -130,10 +151,17 @@ export default function DisplayPage() {
 
   const groupedOrders = useMemo(
     () =>
-      BOARD_SECTIONS.map((section) => ({
-        ...section,
-        orders: orders.filter((order) => order.status === section.status)
-      })),
+      BOARD_SECTIONS.map((section) => {
+        const allOrders = orders.filter((order) => order.status === section.status);
+        const maxVisible = MAX_VISIBLE_BY_STATUS[section.status];
+
+        return {
+          ...section,
+          totalOrders: allOrders.length,
+          orders: allOrders.slice(0, maxVisible),
+          hiddenOrdersCount: Math.max(0, allOrders.length - maxVisible)
+        };
+      }),
     [orders]
   );
 
@@ -143,102 +171,92 @@ export default function DisplayPage() {
   );
 
   return (
-    <main className="app-shell px-6 py-8 text-[var(--ink-950)] xl:px-10 xl:py-10">
-      <div className="mx-auto max-w-[1800px] space-y-8">
-        <section className="page-hero rounded-[2.25rem] p-6 xl:p-8">
-          <div className="relative z-10 flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
-            <div className="space-y-5">
-              <BrandSignature subtitle="Ecran client - Suivi visible des commandes en salle" />
-              <span className="section-kicker">Salle - Grand ecran - Suivi des commandes</span>
-              <div className="space-y-3">
-                <h1 className="section-title hero-title-light">Chaque client voit l avancement de sa commande, de la reception jusqu au service.</h1>
-                <p className="section-subtitle hero-copy-light max-w-4xl text-sm xl:text-base">
-                  L ecran affiche plusieurs commandes en meme temps, les trie par etape et se met a jour
-                  automatiquement quand la cuisine ou le service change un statut.
+    <main className="app-shell h-[100dvh] overflow-hidden px-2 py-2 text-[var(--ink-950)] xl:px-3 xl:py-3">
+      <div className="mx-auto flex h-full max-w-[1900px] flex-col gap-2 overflow-hidden">
+        <section className="page-hero shrink-0 rounded-[1.2rem] p-3">
+          <div className="relative z-10 flex flex-wrap items-center justify-between gap-3">
+            <div className="min-w-0">
+              <span className="section-kicker">Suivi des commandes</span>
+              <h1 className="mt-1 font-display text-2xl text-[var(--ink-950)] xl:text-3xl">Board en direct</h1>
+              {liveMessage && (
+                <p className="mt-1 truncate text-[11px] text-[var(--ink-700)]">
+                  Derniere action: {liveMessage.message}
                 </p>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <span className="theme-chip">Grand ecran salle</span>
-                <span className="theme-chip">Mise a jour en direct</span>
-                <span className="theme-chip">Plusieurs commandes simultanees</span>
-              </div>
+              )}
             </div>
 
-            <div className="theme-card-soft rounded-[1.75rem] p-5 text-[var(--sand-50)] xl:min-w-[340px]">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.26em] text-[var(--sand-400)]">En direct</p>
-                  <p className="mt-2 font-display text-4xl text-[var(--sand-50)]">{formatClock(clock)}</p>
-                </div>
-                <Link href="/" className="theme-action-secondary rounded-full px-4 py-2 text-sm">
-                  Retour accueil
-                </Link>
+            <div className="flex items-center gap-2">
+              <div className="theme-card-soft rounded-xl px-3 py-2 text-[var(--sand-50)]">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--sand-400)]">En direct</p>
+                <p className="font-display text-xl leading-none text-[var(--sand-50)]">{clockLabel}</p>
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-                <div className="rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-soft)]/55 p-3">
-                  <p className="text-[var(--sand-400)]">Commandes actives</p>
-                  <p className="mt-1 text-3xl font-semibold text-[var(--sand-50)]">{activeOrdersCount}</p>
-                </div>
-                <div className="rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-soft)]/55 p-3">
-                  <p className="text-[var(--sand-400)]">Derniere synchro</p>
-                  <p className="mt-1 text-lg font-semibold text-[var(--sand-50)]">
-                    {generatedAt ? formatClock(new Date(generatedAt)) : '--:--:--'}
-                  </p>
-                </div>
+              <div className="theme-card-soft rounded-xl px-3 py-2 text-[var(--sand-50)]">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--sand-400)]">Actives</p>
+                <p className="text-xl font-semibold leading-none text-[var(--sand-50)]">{activeOrdersCount}</p>
               </div>
-              {liveMessage && (
-                <div className="mt-4 rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-soft)]/55 p-3">
-                  <p className="text-xs uppercase tracking-[0.24em] text-[var(--sand-400)]">Derniere action</p>
-                  <p className="mt-2 text-sm text-[var(--sand-50)]">{liveMessage.message}</p>
-                </div>
-              )}
+              <div className="theme-card-soft rounded-xl px-3 py-2 text-[var(--sand-50)]">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--sand-400)]">Synchro</p>
+                <p className="text-sm font-semibold leading-none text-[var(--sand-50)]">
+                  {generatedAt ? formatClock(new Date(generatedAt)) : '--:--:--'}
+                </p>
+              </div>
+              <Link href="/" className="theme-action-secondary rounded-full px-3 py-2 text-[11px]">
+                Accueil
+              </Link>
             </div>
           </div>
         </section>
 
         {error && (
-          <div className="rounded-2xl border border-red-500/35 bg-red-500/10 p-4">
-            <p className="text-red-200">{error}</p>
-            <button onClick={() => void loadBoard()} className="mt-2 text-sm text-red-100 underline">
-              Recharger l ecran
-            </button>
+          <div className="shrink-0 rounded-xl border border-red-500/35 bg-red-500/10 px-3 py-2">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-xs text-red-200">{error}</p>
+              <button onClick={() => void loadBoard()} className="text-xs text-red-100 underline">
+                Recharger
+              </button>
+            </div>
           </div>
         )}
 
-        <div className="grid gap-5 xl:grid-cols-4">
+        <div className="grid min-h-0 flex-1 gap-2 xl:grid-cols-4">
           {groupedOrders.map((section) => (
-            <section key={section.status} className="theme-tabbar rounded-[2rem] p-4 xl:p-5">
-              <div className="mb-4 flex items-start justify-between gap-3">
+            <section key={section.status} className="theme-tabbar flex min-h-0 flex-col rounded-[1.1rem] p-2.5">
+              <div className="mb-2 flex items-start justify-between gap-2">
                 <div>
-                  <h2 className="font-display text-2xl text-[var(--ink-950)]">{section.title}</h2>
-                  <p className="mt-2 text-sm leading-6 text-[var(--ink-700)]">{section.subtitle}</p>
+                  <h2 className="font-display text-lg text-[var(--ink-950)] xl:text-xl">{section.title}</h2>
+                  <p className="text-[10px] uppercase tracking-[0.12em] text-[var(--ink-700)]">{section.subtitle}</p>
                 </div>
-                <span className="rounded-full border border-[var(--line-soft)] bg-[var(--surface-light)] px-3 py-1 text-sm font-semibold text-[var(--ink-950)]">
-                  {section.orders.length}
+                <span className="rounded-full border border-[var(--line-soft)] bg-[var(--surface-light)] px-2.5 py-0.5 text-xs font-semibold text-[var(--ink-950)]">
+                  {section.totalOrders}
                 </span>
               </div>
 
               {loading ? (
-                <div className="rounded-2xl border border-dashed border-[var(--line-soft)] px-4 py-12 text-center text-sm text-[var(--ink-700)]">
+                <div className="rounded-xl border border-dashed border-[var(--line-soft)] px-3 py-6 text-center text-xs text-[var(--ink-700)]">
                   Chargement...
                 </div>
-              ) : section.orders.length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-[var(--line-soft)] px-4 py-12 text-center text-sm text-[var(--ink-700)]">
-                  Aucune commande dans cette etape.
+              ) : section.totalOrders === 0 ? (
+                <div className="rounded-xl border border-dashed border-[var(--line-soft)] px-3 py-6 text-center text-xs text-[var(--ink-700)]">
+                  Aucune commande
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="min-h-0 space-y-2 overflow-hidden">
                   {section.orders.map((order) => (
                     <DisplayOrderCard key={order.id} order={order} />
                   ))}
+                  {section.hiddenOrdersCount > 0 && (
+                    <p className="rounded-lg border border-[var(--line-soft)] bg-[var(--surface-light)] px-2 py-1 text-center text-[11px] text-[var(--ink-700)]">
+                      +{section.hiddenOrdersCount} autres
+                    </p>
+                  )}
                 </div>
               )}
             </section>
           ))}
         </div>
 
-        <div className="flex items-center justify-between gap-4 rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-soft)]/70 px-4 py-3 text-sm text-[var(--ink-700)]">
-          <p>Actualisation automatique toutes les 15 secondes, avec relance immediate sur nouvel evenement.</p>
+        <div className="shrink-0 flex items-center justify-between rounded-xl border border-[var(--line-soft)] bg-[var(--surface-soft)]/70 px-3 py-1.5 text-[11px] text-[var(--ink-700)]">
+          <p>Auto-refresh: 15s</p>
           <p>{refreshing ? 'Synchronisation...' : 'Flux stable'}</p>
         </div>
       </div>

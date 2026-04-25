@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
-import { BrandSignature } from '../components/BrandSignature';
+import ThemeToggle from '../components/ThemeToggle';
 import { MenuItemCard } from './components/MenuItemCard';
 import { OrderSummary } from './components/OrderSummary';
 import { TableSelector } from './components/TableSelector';
@@ -329,113 +329,98 @@ export default function TabletPage() {
   }
 
   return (
-    <main className="app-shell px-4 py-8 text-[var(--ink-950)] sm:px-6 sm:py-12">
-      <div className="mx-auto max-w-7xl space-y-6">
-        <section className="page-hero rounded-[2rem] p-6 sm:p-8">
-          <div className="relative z-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-            <div className="space-y-4">
-              <BrandSignature compact />
-              <span className="section-kicker">Service salle - Tablette serveur</span>
-              <div className="space-y-3">
-                <h1 className="section-title hero-title-light">Une prise de commande plus elegante, plus rapide et plus lisible.</h1>
-                <p className="section-subtitle hero-copy-light text-sm sm:text-base">
-                  La salle garde une interface rapide, mais avec une ambiance plus artisanale: terre cuite,
-                  lumiere chaude, zellige discret et finition plus premium.
-                </p>
-              </div>
+    <main className="app-shell h-[100dvh] overflow-hidden px-3 py-3 text-[var(--ink-950)] sm:px-4 sm:py-4">
+      <div className="mx-auto flex h-full max-w-[1800px] flex-col gap-3">
+        <section className="theme-card-soft shrink-0 rounded-xl px-3 py-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="space-y-0.5">
+              <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--ink-700)]">Serveur</span>
+              <h1 className="font-display text-xl text-[var(--ink-950)] sm:text-2xl">Prise de commande</h1>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              <span className="theme-chip">Tables et commandes</span>
-              <span className="theme-chip">Notifications cuisine</span>
+              <ThemeToggle inline showLabel={false} />
               <button
                 onClick={toggleSound}
-                className={`rounded-full px-4 py-2 text-xs font-medium ${
+                className={`rounded-full px-3 py-1.5 text-xs font-medium ${
                   soundEnabled ? 'theme-action' : 'theme-action-secondary'
                 }`}
               >
                 Son {soundEnabled ? 'ON' : 'OFF'}
               </button>
-              <Link href="/" className="theme-action-secondary rounded-full px-4 py-2 text-sm">
+              <Link href="/" className="theme-action-secondary rounded-full px-3 py-1.5 text-xs">
                 Changer profil
               </Link>
             </div>
           </div>
         </section>
 
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="space-y-1">
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--ink-700)]">Carte du jour</p>
-            <h2 className="font-display text-3xl text-[var(--ink-950)]">Choix des categories et plats</h2>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              onClick={toggleSound}
-              className={`rounded-lg px-3 py-1 text-xs font-medium ${
-                soundEnabled ? 'theme-action' : 'theme-action-secondary'
-              }`}
-            >
-              Son {soundEnabled ? 'ON' : 'OFF'}
-            </button>
-            <Link href="/" className="text-sm text-[var(--ink-700)] hover:text-[var(--ink-950)]">
-              Changer profil
-            </Link>
-          </div>
-        </div>
-
         {notifications.length > 0 && (
-          <div className="space-y-2">
-            {notifications.map((notification) => (
-              <div key={notification.id} className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-3">
-                <p className="text-sm text-emerald-200">{notification.message}</p>
-                <p className="text-xs text-slate-400">
-                  {new Date(notification.createdAt).toLocaleTimeString('fr-MA')}
-                </p>
-              </div>
-            ))}
+          <div className="shrink-0 rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-3 py-2">
+            <p className="truncate text-xs text-emerald-200">{notifications[0]?.message}</p>
           </div>
         )}
 
         {error && (
-          <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-4">
-            <p className="text-red-300">{error}</p>
-            <button onClick={() => void loadTabletData()} className="mt-2 text-sm text-red-200 underline">
-              Reessayer
-            </button>
+          <div className="shrink-0 rounded-xl border border-red-500/40 bg-red-500/10 px-3 py-2">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-xs text-red-300">{error}</p>
+              <button onClick={() => void loadTabletData()} className="text-xs text-red-200 underline">
+                Reessayer
+              </button>
+            </div>
           </div>
         )}
 
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3 xl:gap-8">
-          <div className="lg:col-span-2 space-y-6">
-            <div className="theme-tabbar rounded-3xl p-6">
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`px-4 py-2 rounded-xl font-medium transition-colors ${
-                      selectedCategory === category.id
-                        ? 'theme-tab-active'
-                        : 'theme-tab theme-action-secondary'
-                    }`}
-                  >
-                    {category.name}
-                  </button>
-                ))}
+        <div className="grid min-h-0 flex-1 grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_390px]">
+          <section className="theme-panel-surface flex min-h-0 flex-col rounded-[1.3rem] p-3">
+            <div className="shrink-0 space-y-2">
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-xs uppercase tracking-[0.18em] text-[var(--ink-700)]">Menu</p>
+                <p className="text-xs text-[var(--ink-700)]">{filteredItems.length} article(s)</p>
+              </div>
+
+              <div className="theme-tabbar rounded-xl p-2">
+                <div className="flex gap-2 overflow-x-auto pb-1 whitespace-nowrap">
+                  {categories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => setSelectedCategory(category.id)}
+                      className={`shrink-0 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+                        selectedCategory === category.id ? 'theme-tab-active' : 'theme-tab theme-action-secondary'
+                      }`}
+                    >
+                      {category.name}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
-              {filteredItems.map((item) => (
-                <MenuItemCard key={item.id} item={item} onAddToOrder={addToOrder} />
-              ))}
+            <div className="mt-3 min-h-0 flex-1 overflow-y-auto pr-1">
+              {filteredItems.length === 0 ? (
+                <div className="rounded-xl border border-dashed border-[var(--line-soft)] px-4 py-10 text-center text-sm text-[var(--ink-700)]">
+                  Aucun article dans cette categorie.
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 gap-3 2xl:grid-cols-2">
+                  {filteredItems.map((item) => (
+                    <MenuItemCard key={item.id} item={item} onAddToOrder={addToOrder} />
+                  ))}
+                </div>
+              )}
             </div>
-          </div>
+          </section>
 
-          <div className="space-y-6">
-            <TableSelector tables={tables} selectedTableId={selectedTableId} onSelectTable={setSelectedTableId} />
+          <aside className="flex min-h-0 flex-col gap-3">
+            <TableSelector
+              tables={tables}
+              selectedTableId={selectedTableId}
+              onSelectTable={setSelectedTableId}
+              compact
+            />
 
-            <div className={submitting ? 'pointer-events-none opacity-70' : ''}>
+            <div className={`min-h-0 flex-1 ${submitting ? 'pointer-events-none opacity-70' : ''}`}>
               <OrderSummary
                 items={orderItems}
                 onUpdateQuantity={updateQuantity}
@@ -443,9 +428,10 @@ export default function TabletPage() {
                 onRemoveItem={removeFromOrder}
                 onSubmitOrder={submitOrder}
                 total={total}
+                compact
               />
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </main>

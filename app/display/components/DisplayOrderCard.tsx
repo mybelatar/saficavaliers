@@ -21,17 +21,6 @@ export interface DisplayOrder {
   summaryItems: DisplayOrderSummaryItem[];
 }
 
-const PROGRESS_STEPS: Array<{ status: DisplayOrderStatus; label: string; shortLabel: string }> = [
-  { status: 'PENDING', label: 'Commande recue', shortLabel: 'Recue' },
-  { status: 'IN_PROGRESS', label: 'En preparation', shortLabel: 'Cuisine' },
-  { status: 'READY', label: 'Prete a servir', shortLabel: 'Prete' },
-  { status: 'COMPLETED', label: 'Servie', shortLabel: 'Servie' }
-];
-
-function getStatusIndex(status: DisplayOrderStatus) {
-  return PROGRESS_STEPS.findIndex((step) => step.status === status);
-}
-
 function getAccentClasses(status: DisplayOrderStatus) {
   switch (status) {
     case 'PENDING':
@@ -85,77 +74,47 @@ function formatTime(iso: string) {
 }
 
 export function DisplayOrderCard({ order }: { order: DisplayOrder }) {
-  const statusIndex = getStatusIndex(order.status);
   const accent = getAccentClasses(order.status);
-  const visibleItems = order.summaryItems.slice(0, 3);
+  const visibleItems = order.summaryItems.slice(0, 1);
   const remainingItems = Math.max(0, order.summaryItems.length - visibleItems.length);
 
   return (
-    <article className={`theme-card relative overflow-hidden rounded-[1.75rem] border ${accent.border} p-5`}>
-      <div className={`pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-br ${accent.glow}`} />
+    <article className={`theme-card relative overflow-hidden  border ${accent.border} p-2.5`}>
+      <div className={`pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-br ${accent.glow}`} />
 
-      <div className="relative z-10 space-y-4">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-[11px] uppercase tracking-[0.28em] text-[var(--sand-400)]">Commande {order.code}</p>
-            <h3 className="mt-2 font-display text-3xl text-[var(--sand-50)]">Table {order.tableNumber}</h3>
+      <div className="relative z-10 space-y-2">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <p className="text-[9px] uppercase tracking-[0.18em] text-[var(--sand-400)]">Commande {order.code}</p>
+            <h3 className="mt-0.5 font-display text-xl leading-none text-[var(--sand-50)]">Table {order.tableNumber}</h3>
           </div>
-          <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${accent.badge}`}>
+          <span className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold ${accent.badge}`}>
             {getStatusLabel(order.status)}
           </span>
         </div>
 
-        <div className="grid grid-cols-4 gap-2">
-          {PROGRESS_STEPS.map((step, index) => {
-            const reached = index <= statusIndex;
-            const current = index === statusIndex;
-
-            return (
-              <div key={step.status} className="space-y-2 text-center">
-                <div
-                  className={`mx-auto h-3.5 w-3.5 rounded-full border transition-colors ${
-                    reached
-                      ? 'border-[var(--sand-50)] bg-[var(--clay-400)]'
-                      : 'border-[var(--line-soft)] bg-transparent'
-                  } ${current ? 'shadow-[0_0_0_6px_rgba(212,138,83,0.14)]' : ''}`}
-                />
-                <p className={`text-[11px] leading-4 ${reached ? 'text-[var(--sand-50)]' : 'text-[var(--sand-400)]'}`}>
-                  {step.shortLabel}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="space-y-2 rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-soft)]/50 p-3">
+        <div className="space-y-1 rounded-lg border border-[var(--line-soft)] bg-[var(--surface-soft)]/50 p-2">
           {visibleItems.map((item) => (
-            <div key={item.id} className="flex items-start gap-3">
-              <span className="mt-0.5 inline-flex min-w-[2.1rem] justify-center rounded-full bg-[rgba(212,138,83,0.16)] px-2 py-1 text-xs font-semibold text-[var(--sand-50)]">
+            <div key={item.id} className="flex items-start gap-2">
+              <span className="mt-0.5 inline-flex min-w-[1.8rem] justify-center rounded-full bg-[rgba(212,138,83,0.16)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--sand-50)]">
                 x{item.quantity}
               </span>
               <div className="min-w-0 flex-1">
                 <BilingualMenuName
                   name={item.name}
-                  frenchClassName="text-sm font-medium text-[var(--sand-50)]"
-                  arabicClassName="text-sm font-medium text-[var(--sand-200)]"
+                  frenchClassName="line-clamp-1 text-[12px] font-medium text-[var(--sand-50)]"
+                  arabicClassName="line-clamp-1 text-[12px] font-medium text-[var(--sand-200)]"
                 />
-                {item.variantName && <p className="mt-1 text-xs text-[var(--sand-400)]">{item.variantName}</p>}
+                {item.variantName && <p className="mt-0.5 line-clamp-1 text-[10px] text-[var(--sand-400)]">{item.variantName}</p>}
               </div>
             </div>
           ))}
-          {remainingItems > 0 && <p className="text-xs text-[var(--sand-400)]">+ {remainingItems} autres lignes</p>}
+          {remainingItems > 0 && <p className="text-[10px] text-[var(--sand-400)]">+ {remainingItems} autres lignes</p>}
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
-          <p className="text-[var(--sand-400)]">{order.itemCount} article(s)</p>
-          <div className="flex flex-wrap items-center gap-3 text-[var(--sand-400)]">
-            <span>Recue a {formatTime(order.placedAt)}</span>
-            {order.status === 'COMPLETED' ? (
-              <span>Servie a {formatTime(order.updatedAt)}</span>
-            ) : (
-              <span>Suivi en direct</span>
-            )}
-          </div>
+        <div className="flex items-center justify-between gap-2 text-[10px] text-[var(--sand-400)]">
+          <p>{order.itemCount} article(s)</p>
+          <p>{formatTime(order.status === 'COMPLETED' ? order.updatedAt : order.placedAt)}</p>
         </div>
       </div>
     </article>

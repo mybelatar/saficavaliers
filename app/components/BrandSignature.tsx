@@ -7,7 +7,7 @@ interface BrandSignatureProps {
 }
 
 export function BrandSignature({
-  subtitle = 'Cuisine marocaine - Riad ferme - Cavaliers',
+  subtitle = 'Plateforme de gestion du restaurant',
   compact = false,
   center = false
 }: BrandSignatureProps) {
@@ -23,6 +23,7 @@ export function BrandSignature({
           alt="Safi Cavaliers"
           width={compact ? 250 : 320}
           height={compact ? 76 : 98}
+          style={{ width: 'auto', height: 'auto' }}
           priority
         />
       </div>

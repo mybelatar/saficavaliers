@@ -683,6 +683,23 @@ img {
   transform: translateX(1.68rem);
 }
 
+.theme-switch-compact {
+  width: 3.4rem;
+  height: 1.9rem;
+  padding: 0.18rem 0.38rem;
+}
+
+.theme-switch-compact .theme-switch-thumb {
+  top: 0.17rem;
+  left: 0.17rem;
+  width: 1.54rem;
+  height: 1.54rem;
+}
+
+.theme-switch-compact.is-dark .theme-switch-thumb {
+  transform: translateX(1.33rem);
+}
+
 .theme-switch-icon {
   position: relative;
   z-index: 1;

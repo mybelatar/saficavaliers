@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { type ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { StatCard } from './components/StatCard';
@@ -1779,25 +1780,20 @@ export default function MobilePage() {
   }
 
   return (
-    <main className="app-shell px-4 py-8 text-[var(--ink-950)]">
+    <main className="app-shell px-4 py-4 text-[var(--ink-950)]">
       <div className="mx-auto max-w-5xl">
-        <section className="page-hero mb-8 rounded-[2rem] p-6 text-center sm:p-8">
-          <div className="relative z-10 space-y-5">
-            <BrandSignature center />
+        <section className="page-hero mb-5 rounded-[1.6rem] p-4 text-center sm:p-5">
+          <div className="relative z-10 space-y-3">
+            <BrandSignature center compact />
             <div className="flex justify-center">
-              <span className="section-kicker">Direction - Riad ferme - Safi Cavaliers</span>
+              <span className="section-kicker">Manager</span>
             </div>
-            <div className="space-y-3">
-              <h1 className="section-title hero-title-light">Pilotage du restaurant dans un esprit artisanal et premium.</h1>
-              <p className="hero-copy-light mx-auto max-w-3xl text-sm leading-7 sm:text-base">
-                Le manager garde une vue complete sur les ventes, le stock, les reservations et la carte,
-                avec un design plus chaleureux: terre, bois, service equestre et tradition marocaine.
-              </p>
+            <div className="space-y-2">
+              <h1 className="font-display text-3xl text-[var(--ink-950)] sm:text-4xl">Pilotage du restaurant</h1>
+              <p className="text-xs uppercase tracking-[0.14em] text-[var(--ink-700)]">Ventes, stock, reservations</p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-2">
-              <span className="theme-chip">Statistiques et caisse</span>
-              <span className="theme-chip">Carte et reservations</span>
-              <span className="theme-chip">Stock et exploitation</span>
+              <span className="theme-chip">Operations</span>
             </div>
             <div className="flex items-center justify-center gap-2">
               <button
@@ -1815,22 +1811,8 @@ export default function MobilePage() {
           </div>
         </section>
 
-        <div className="text-center mb-8">
-          <h2 className="font-display mb-2 text-4xl text-[var(--ink-950)] sm:text-5xl">Tableau de bord manager</h2>
-          <p className="text-sm text-[var(--ink-700)]">Statistiques et gestion complete du restaurant</p>
-          <div className="mt-2 flex items-center justify-center gap-2">
-            <button
-              onClick={toggleSound}
-              className={`rounded-lg px-3 py-1 text-xs font-medium ${
-                soundEnabled ? 'theme-action' : 'theme-action-secondary'
-              }`}
-            >
-              Son {soundEnabled ? 'ON' : 'OFF'}
-            </button>
-            <Link href="/" className="text-xs text-[var(--ink-700)] hover:text-[var(--ink-950)]">
-              Changer profil
-            </Link>
-          </div>
+        <div className="text-center mb-5">
+          <h2 className="font-display text-3xl text-[var(--ink-950)] sm:text-4xl">Tableau de bord manager</h2>
         </div>
 
         {notifications.length > 0 && (
@@ -2088,9 +2070,11 @@ export default function MobilePage() {
                               <div key={item.id} className="theme-panel-item rounded-xl p-3">
                                 <div className="flex gap-3">
                                   {item.imageUrl ? (
-                                    <img
+                                    <Image
                                       src={item.imageUrl}
                                       alt={item.name}
+                                      width={64}
+                                      height={64}
                                       className="h-16 w-16 rounded-lg object-cover border border-slate-600"
                                     />
                                   ) : (
@@ -2695,11 +2679,9 @@ export default function MobilePage() {
                           </label>
                         </div>
                         {menuForm.imageUrl && (
-                          <img
-                            src={menuForm.imageUrl}
-                            alt="Preview article"
-                            className="h-36 w-full rounded-xl border border-slate-700 object-cover"
-                          />
+                          <div className="relative h-36 w-full overflow-hidden rounded-xl border border-slate-700">
+                            <Image src={menuForm.imageUrl} alt="Preview article" fill className="object-cover" />
+                          </div>
                         )}
                         <div className="flex flex-col gap-2 sm:flex-row">
                           <button

@@ -145,7 +145,6 @@ export async function GET() {
     const todayOrderCount = todayOrders.length;
     const yesterdayOrderCount = yesterdayOrders.length;
     const todayRevenue = todayOrders.reduce((sum, order) => sum + order.total, 0);
-    const yesterdayRevenue = yesterdayOrders.reduce((sum, order) => sum + order.total, 0);
     const todayPaidRevenue = todayOrders
       .filter((order) => order.settlementStatus === 'PAID')
       .reduce((sum, order) => sum + order.total, 0);

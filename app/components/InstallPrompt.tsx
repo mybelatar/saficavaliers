@@ -47,9 +47,18 @@ export function InstallPrompt() {
     }
 
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch((error) => {
-        console.error('Service worker registration failed:', error);
-      });
+      if (process.env.NODE_ENV === 'production') {
+        navigator.serviceWorker.register('/sw.js').catch((error) => {
+          console.error('Service worker registration failed:', error);
+        });
+      } else {
+        navigator.serviceWorker
+          .getRegistrations()
+          .then((registrations) =>
+            Promise.all(registrations.map((registration) => registration.unregister().catch(() => false)))
+          )
+          .catch(() => undefined);
+      }
     }
 
     setInstalled(isStandaloneMode());
@@ -150,3 +159,5 @@ export function InstallPrompt() {
     </div>
   );
 }
+
+export default InstallPrompt;

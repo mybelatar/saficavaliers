@@ -236,25 +236,21 @@ export default function KitchenPage() {
   }
 
   return (
-    <main className="app-shell px-4 py-8 text-[var(--ink-950)] sm:px-6 sm:py-12">
+    <main className="app-shell px-4 py-4 text-[var(--ink-950)] sm:px-6 sm:py-6">
       <div className="mx-auto max-w-7xl">
-        <section className="page-hero mb-8 rounded-[2rem] p-6 sm:p-8">
-          <div className="relative z-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-            <div className="space-y-4">
+        <section className="page-hero mb-5 rounded-[1.6rem] p-4 sm:p-5">
+          <div className="relative z-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div className="space-y-3">
               <BrandSignature compact />
-              <span className="section-kicker">Cuisine - Envoi - Preparations</span>
-              <div className="space-y-3">
-                <h1 className="section-title hero-title-light">Un poste cuisine plus clair, plus chaud et plus professionnel.</h1>
-                <p className="section-subtitle hero-copy-light text-sm sm:text-base">
-                  Les commandes restent prioritaires et immediates, mais l'ensemble prend maintenant une allure
-                  plus premium, inspiree par la terre, le bois et l'artisanat marocain.
-                </p>
+              <span className="section-kicker">Cuisine - Commandes</span>
+              <div className="space-y-2">
+                <h1 className="font-display text-3xl leading-tight text-[var(--ink-950)] sm:text-4xl">Ecran cuisine</h1>
+                <p className="text-xs uppercase tracking-[0.14em] text-[var(--ink-700)]">Flux en direct</p>
               </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              <span className="theme-chip">Flux cuisine en direct</span>
-              <span className="theme-chip">Notification et son</span>
+              <span className="theme-chip">Production</span>
               <button
                 onClick={toggleSound}
                 className={`rounded-full px-4 py-2 text-xs font-medium ${
@@ -270,23 +266,10 @@ export default function KitchenPage() {
           </div>
         </section>
 
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1">
-            <p className="text-xs uppercase tracking-[0.24em] text-[var(--ink-700)]">Suivi des postes</p>
-            <h2 className="font-display text-3xl text-[var(--ink-950)]">Ecran cuisine</h2>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              onClick={toggleSound}
-              className={`rounded-lg px-3 py-1 text-xs font-medium ${
-                soundEnabled ? 'theme-action' : 'theme-action-secondary'
-              }`}
-            >
-              Son {soundEnabled ? 'ON' : 'OFF'}
-            </button>
-            <Link href="/" className="text-sm text-[var(--ink-700)] hover:text-[var(--ink-950)]">
-              Changer profil
-            </Link>
+            <p className="text-xs uppercase tracking-[0.2em] text-[var(--ink-700)]">Operations</p>
+            <h2 className="font-display text-2xl text-[var(--ink-950)]">File des commandes</h2>
           </div>
         </div>
 
