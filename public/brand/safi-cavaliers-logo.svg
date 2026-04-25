@@ -1,0 +1,29 @@
+<svg width="720" height="220" viewBox="0 0 720 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="horseFill" x1="40" y1="24" x2="166" y2="176" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B87043"/>
+      <stop offset="1" stop-color="#744428"/>
+    </linearGradient>
+    <linearGradient id="archStroke" x1="28" y1="20" x2="176" y2="182" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D8B986"/>
+      <stop offset="1" stop-color="#8D6243"/>
+    </linearGradient>
+  </defs>
+  <g opacity="0.98">
+    <path d="M102 22C61.13 22 28 55.13 28 96V170C28 176.627 33.3726 182 40 182H164C170.627 182 176 176.627 176 170V96C176 55.13 142.87 22 102 22Z" stroke="url(#archStroke)" stroke-width="8"/>
+    <path d="M102 42C72.1766 42 48 66.1766 48 96V162H156V96C156 66.1766 131.823 42 102 42Z" fill="rgba(255,248,236,0.0)"/>
+    <path d="M74 133C80.8 127.533 85.9667 119.7 89.5 109.5C92.5667 100.7 96.1667 95.0667 100.3 92.6C104.433 90.1333 108.7 89.0333 113.1 89.3C120.033 89.8333 125.667 94.1 130 102.1C133.733 109.033 135.667 116.1 135.8 123.3C135.933 129.433 134.867 135.633 132.6 141.9L123.9 140.3C125.9 133.5 126.3 127.4 125.1 122C123.767 116 121.167 110.8 117.3 106.4C113.833 102.533 110.167 101.167 106.3 102.3C101.5 103.7 98.2333 108 96.5 115.2C94.6333 123.067 90.8333 130.1 85.1 136.3C82.9667 138.7 80.1 141.267 76.5 144L74 133Z" fill="url(#horseFill)"/>
+    <path d="M116.2 67.8C126.4 70.0667 134.033 74.4333 139.1 80.9C144.033 87.3667 145.967 95.4667 144.9 105.2C144.367 110 142.7 114.867 139.9 119.8L134.8 118.6C135.6 112.733 135.267 107.567 133.8 103.1C132.333 98.3667 129.4 94.2667 125 90.8C120.333 87.0667 114.433 84.7 107.3 83.7L112.4 70.9L104.9 61.8L116.2 67.8Z" fill="url(#horseFill)"/>
+    <path d="M109.7 78.3C116.5 78.7 122.133 80.9333 126.6 85C131.333 89.3333 134 94.5333 134.6 100.6" stroke="#F7EEE0" stroke-width="5.5" stroke-linecap="round"/>
+    <circle cx="124.5" cy="95.5" r="4.5" fill="#F7EEE0"/>
+    <path d="M66 168H138" stroke="#D8B986" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+  </g>
+  <g transform="translate(214 48)">
+    <path d="M0 20H190" stroke="#C39A67" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+    <path d="M318 20H506" stroke="#C39A67" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+    <circle cx="253" cy="20" r="14" stroke="#B87043" stroke-width="3"/>
+    <path d="M245 20H261M253 12V28" stroke="#B87043" stroke-width="3" stroke-linecap="round"/>
+    <text x="0" y="78" fill="#543421" font-family="Georgia, serif" font-size="58" letter-spacing="10">SAFI CAVALIERS</text>
+    <text x="2" y="124" fill="#8B6A4B" font-family="Arial, sans-serif" font-size="20" letter-spacing="7">RIAD FERME • CUISINE MAROCAINE • BALADES</text>
+  </g>
+</svg>

@@ -1,0 +1,5 @@
+- [x] Create the restaurant dashboard project scaffold.
+- [x] Install dependencies and verify project setup.
+- [x] Validate Prisma schema and seed script.
+- [x] Confirm app routes for tablet, kitchen, and mobile.
+- [ ] Remove extra lockfiles or set Next.js turbopack root if needed.

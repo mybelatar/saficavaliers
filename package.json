@@ -1,0 +1,49 @@
+{
+  "name": "restaurant-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --webpack",
+    "dev:turbo": "next dev --turbopack",
+    "build": "next build",
+    "postinstall": "prisma generate",
+    "start": "next start",
+    "lint": "eslint . --ext .ts,.tsx",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio",
+    "db:seed": "tsx prisma/seed.ts",
+    "cap:sync": "npx cap sync",
+    "cap:open:android": "npx cap open android",
+    "cap:open:ios": "npx cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.0.1",
+    "@capacitor/app": "8.0.0",
+    "@capacitor/core": "8.0.1",
+    "@capacitor/keyboard": "8.0.0",
+    "@capacitor/status-bar": "8.0.0",
+    "@heroicons/react": "^2.2.0",
+    "@prisma/client": "^6.18.0",
+    "dotenv": "^17.4.2",
+    "next": "^16.2.4",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.3.1",
+    "@tailwindcss/postcss": "^4.2.4",
+    "@types/node": "^20.19.39",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.4",
+    "prisma": "^6.18.0",
+    "tailwindcss": "^4.2.4",
+    "tsx": "^4.20.6",
+    "typescript": "^5"
+  }
+}

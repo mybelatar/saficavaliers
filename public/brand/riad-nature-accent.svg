@@ -1,0 +1,22 @@
+<svg width="640" height="420" viewBox="0 0 640 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g opacity="0.92">
+    <path d="M504 362C470 322 449 279 441 233C433 187 437 149 453 119C470 87 497 67 533 58" stroke="#B97A48" stroke-width="8" stroke-linecap="round"/>
+    <path d="M444 226C462 210 480 201 498 199C516 198 531 205 543 220C553 233 557 250 555 271" stroke="#D8B986" stroke-width="5" stroke-linecap="round"/>
+    <path d="M455 230C418 231 389 220 368 197C347 174 340 148 347 120C354 91 372 69 402 54" stroke="#8B6A4B" stroke-width="7" stroke-linecap="round"/>
+    <path d="M388 54C429 66 462 92 487 132C512 171 523 214 520 261" stroke="#C79B6B" stroke-width="6" stroke-linecap="round"/>
+    <path d="M411 86C418 99 423 111 426 122C429 132 430 141 429 149" stroke="#8B6A4B" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="450" cy="155" r="7" fill="#5E3D2B"/>
+    <path d="M326 98C338 70 356 48 380 34C404 19 429 13 456 16" stroke="#8AAB76" stroke-width="8" stroke-linecap="round"/>
+    <path d="M319 109C293 93 267 88 241 95C214 101 192 117 175 142" stroke="#8AAB76" stroke-width="8" stroke-linecap="round"/>
+    <path d="M313 128C278 128 245 139 215 160C184 180 162 206 149 238" stroke="#8AAB76" stroke-width="7" stroke-linecap="round"/>
+    <path d="M92 314C114 283 133 243 149 195C165 147 174 99 177 52" stroke="#7B9B67" stroke-width="8" stroke-linecap="round"/>
+    <path d="M179 82C144 90 117 106 98 129C78 151 69 177 70 206" stroke="#9CB884" stroke-width="6" stroke-linecap="round"/>
+    <path d="M179 104C214 91 244 92 268 108C291 124 305 149 310 182" stroke="#9CB884" stroke-width="6" stroke-linecap="round"/>
+    <path d="M180 144C146 150 120 165 101 190C82 214 72 243 71 276" stroke="#9CB884" stroke-width="6" stroke-linecap="round"/>
+    <path d="M180 174C222 166 258 174 286 198C315 223 331 255 335 296" stroke="#9CB884" stroke-width="6" stroke-linecap="round"/>
+    <path d="M96 88C118 74 136 64 151 58" stroke="#D8B986" stroke-width="4" stroke-linecap="round"/>
+    <path d="M571 89C586 83 598 76 607 69" stroke="#8B6A4B" stroke-width="5" stroke-linecap="round"/>
+    <path d="M564 71C582 72 598 79 611 92" stroke="#8B6A4B" stroke-width="5" stroke-linecap="round"/>
+    <path d="M561 100C580 102 596 110 607 125" stroke="#8B6A4B" stroke-width="5" stroke-linecap="round"/>
+  </g>
+</svg>

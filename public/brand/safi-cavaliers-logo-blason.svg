@@ -1,0 +1,63 @@
+<svg width="980" height="300" viewBox="0 0 980 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldStroke" x1="44" y1="24" x2="305" y2="286" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E4CDA1"/>
+      <stop offset="0.5" stop-color="#BB8750"/>
+      <stop offset="1" stop-color="#805033"/>
+    </linearGradient>
+    <linearGradient id="goldSoft" x1="96" y1="58" x2="224" y2="250" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9EE"/>
+      <stop offset="1" stop-color="#E8D4B4"/>
+    </linearGradient>
+    <linearGradient id="horseFill" x1="100" y1="74" x2="202" y2="222" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#925733"/>
+      <stop offset="1" stop-color="#59341F"/>
+    </linearGradient>
+    <linearGradient id="leafStroke" x1="18" y1="96" x2="292" y2="232" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#AAB985"/>
+      <stop offset="1" stop-color="#677850"/>
+    </linearGradient>
+    <filter id="softShadow" x="0" y="0" width="980" height="300" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="14" stdDeviation="10" flood-color="#8A6547" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <g filter="url(#softShadow)">
+    <g transform="translate(30 20)">
+      <path d="M82 58L208 224" stroke="url(#goldStroke)" stroke-width="5" stroke-linecap="round" opacity="0.6"/>
+      <path d="M208 58L82 224" stroke="url(#goldStroke)" stroke-width="5" stroke-linecap="round" opacity="0.6"/>
+      <path d="M145 18C89.219 18 44 63.219 44 119V160C44 223 82.333 258.333 145 278C207.667 258.333 246 223 246 160V119C246 63.219 200.781 18 145 18Z" fill="url(#goldSoft)" stroke="url(#goldStroke)" stroke-width="8"/>
+      <path d="M145 39C101.384 39 66 74.3835 66 118V156C66 206.833 92.333 236 145 254C197.667 236 224 206.833 224 156V118C224 74.3835 188.616 39 145 39Z" fill="#FFFDF8" stroke="#D8B786" stroke-width="2.8"/>
+      <g opacity="0.95">
+        <path d="M145 56L160 78L186 85L168 104L171 131L145 120L119 131L122 104L104 85L130 78L145 56Z" stroke="url(#goldStroke)" stroke-width="4" stroke-linejoin="round"/>
+        <circle cx="145" cy="92" r="12" stroke="#B97A48" stroke-width="3"/>
+        <path d="M145 77V107M130 92H160" stroke="#B97A48" stroke-width="2.8" stroke-linecap="round"/>
+      </g>
+      <g>
+        <path d="M116 210C126.533 200.4 134.2 188.067 139 173C143.267 159.8 147.733 150.933 152.4 146.4C157.067 141.867 162.8 139.667 169.6 139.8C179.6 140.067 188.133 145.333 195.2 155.6C200.8 163.733 203.6 172.667 203.6 182.4C203.733 192.533 201.333 203.267 196.4 214.6L182 211.6C186.933 199.467 188.133 188.333 185.6 178.2C183.067 167.267 177.067 159.6 167.6 155.2C160.4 152.133 154.333 153.667 149.4 159.8C144.467 166.067 140.533 176.067 137.6 189.8C134.533 204.067 127.8 217.2 117.4 229.2L112 216.2L116 210Z" fill="url(#horseFill)"/>
+        <path d="M158.6 92.2C171.933 94.4667 183 99.5333 191.8 107.4C200.6 115.133 205.4 125.2 206.2 137.6C206.733 145.733 204.933 153.933 200.8 162.2L192.2 160.2C194.2 151.667 194.133 144 192 137.2C189.733 130.267 185.067 124.4 178 119.6C170.933 114.8 161.867 111.733 150.8 110.4L160 95.8L148 79.8L158.6 92.2Z" fill="url(#horseFill)"/>
+        <path d="M149 103C160.067 103.4 169.133 106.533 176.2 112.4C183.4 118.133 187.467 125.133 188.4 133.4" stroke="#FFF6E8" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="176" cy="126" r="5.2" fill="#FFF6E8"/>
+        <path d="M127 232H194" stroke="#B88454" stroke-width="5.2" stroke-linecap="round" opacity="0.75"/>
+      </g>
+      <g opacity="0.9">
+        <path d="M56 206C71.333 190 83.533 170.867 92.6 148.6C101.667 126.333 106.467 104.467 107 83" stroke="url(#leafStroke)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M233 206C217.667 190 205.467 170.867 196.4 148.6C187.333 126.333 182.533 104.467 182 83" stroke="url(#leafStroke)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M84 120C66.1333 126.667 54.4667 138.333 49 155" stroke="#88A06C" stroke-width="4.4" stroke-linecap="round"/>
+        <path d="M90 149C72.1333 155.667 60.4667 167.333 55 184" stroke="#88A06C" stroke-width="4.4" stroke-linecap="round"/>
+        <path d="M84 176C68.6667 180.133 57.6667 188.4 51 200.8" stroke="#88A06C" stroke-width="4.4" stroke-linecap="round"/>
+        <path d="M206 120C223.867 126.667 235.533 138.333 241 155" stroke="#88A06C" stroke-width="4.4" stroke-linecap="round"/>
+        <path d="M200 149C217.867 155.667 229.533 167.333 235 184" stroke="#88A06C" stroke-width="4.4" stroke-linecap="round"/>
+        <path d="M206 176C221.333 180.133 232.333 188.4 239 200.8" stroke="#88A06C" stroke-width="4.4" stroke-linecap="round"/>
+      </g>
+    </g>
+    <g transform="translate(330 56)">
+      <path d="M0 24H194" stroke="#C89A63" stroke-width="3.2" stroke-linecap="round" opacity="0.8"/>
+      <path d="M382 24H574" stroke="#C89A63" stroke-width="3.2" stroke-linecap="round" opacity="0.8"/>
+      <path d="M287 9L301 24L287 39L272 24L287 9Z" stroke="#B87444" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M287 15V33M278 24H296" stroke="#B87444" stroke-width="2.6" stroke-linecap="round"/>
+      <text x="0" y="86" fill="#4E301E" font-family="Georgia, serif" font-size="64" letter-spacing="11">SAFI CAVALIERS</text>
+      <text x="4" y="130" fill="#7B5A43" font-family="Arial, sans-serif" font-size="20" letter-spacing="6">RIAD FERME - CUISINE MAROCAINE - BALADES EQUESTRES</text>
+      <text x="4" y="173" fill="#A06F46" font-family="Arial, sans-serif" font-size="14" letter-spacing="8">BLASON EQUESTRE MAROCAIN</text>
+    </g>
+  </g>
+</svg>
