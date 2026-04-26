@@ -81,3 +81,11 @@ Le projet Android est configure pour charger l URL de votre serveur Next.js.
 ## Exposer l application sur le port 80 (serveur)
 
 Une config Nginx est fournie dans `deploy/nginx/restaurant-dashboard.conf` pour proxy vers `127.0.0.1:3000`.
+
+## HTTPS local network (sans domaine)
+
+Pour afficher le vrai bouton d installation PWA dans Chrome desktop/tablette, utilisez HTTPS:
+
+- Config Nginx HTTPS: `deploy/nginx/restaurant-dashboard-https.conf`
+- Certificat serveur pour IP LAN: `192.168.1.165` (SAN IP)
+- Installer le certificat racine local sur chaque appareil (Windows/Android) qui accede a la plateforme.
