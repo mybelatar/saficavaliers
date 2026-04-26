@@ -41,7 +41,9 @@ export const metadata: Metadata = {
     title: 'Safi Cavaliers'
   },
   other: {
-    'mobile-web-app-capable': 'yes'
+    'mobile-web-app-capable': 'yes',
+    'msapplication-TileColor': '#140f0b',
+    'msapplication-config': '/browserconfig.xml'
   }
 };
 
