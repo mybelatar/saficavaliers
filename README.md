@@ -52,6 +52,11 @@ Application Next.js + TypeScript + Prisma + Tailwind + Capacitor pour gerer:
 
 L application est installable en PWA sur Android et Windows.
 
+### Important (Android + HTTP)
+
+Sur Android Chrome, le vrai prompt `Installer l'application` exige un contexte securise (HTTPS ou localhost).
+Avec `http://192.168.1.165`, Chrome peut proposer `Ajouter a l ecran d accueil`, mais ce sera un raccourci web.
+
 ### Windows (Edge/Chrome)
 
 1. Deployer l application en HTTPS.
@@ -72,3 +77,7 @@ Le projet Android est configure pour charger l URL de votre serveur Next.js.
 2. Synchroniser Android: `npm run cap:sync:android`
 3. Ouvrir Android Studio: `npm run cap:open:android`
 4. Depuis Android Studio, generer un APK/AAB signe (`Build > Generate Signed Bundle / APK`).
+
+## Exposer l application sur le port 80 (serveur)
+
+Une config Nginx est fournie dans `deploy/nginx/restaurant-dashboard.conf` pour proxy vers `127.0.0.1:3000`.

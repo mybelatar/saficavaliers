@@ -11,7 +11,7 @@ interface BeforeInstallPromptEvent extends Event {
   }>;
 }
 
-const DISMISS_STORAGE_KEY = 'restaurant_pwa_install_dismissed_v1';
+const DISMISS_STORAGE_KEY = 'restaurant_pwa_install_dismissed_v2';
 
 function isStandaloneMode() {
   if (typeof window === 'undefined') {
@@ -33,6 +33,16 @@ function isSupportedInstallPlatform() {
   return /android|windows/i.test(navigator.userAgent);
 }
 
+function isSecureInstallContext() {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  const hostname = window.location.hostname;
+  const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '[::1]';
+  return window.isSecureContext || isLocalhost;
+}
+
 export function InstallPrompt() {
   const pathname = usePathname();
   const [installEvent, setInstallEvent] = useState<BeforeInstallPromptEvent | null>(null);
@@ -40,13 +50,17 @@ export function InstallPrompt() {
   const [ready, setReady] = useState(false);
   const [installed, setInstalled] = useState(false);
   const [manualHint, setManualHint] = useState(false);
+  const [secureContext, setSecureContext] = useState(true);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
     }
 
-    if ('serviceWorker' in navigator) {
+    const secureInstallContext = isSecureInstallContext();
+    setSecureContext(secureInstallContext);
+
+    if (secureInstallContext && 'serviceWorker' in navigator) {
       if (process.env.NODE_ENV === 'production') {
         navigator.serviceWorker.register('/sw.js').catch((error) => {
           console.error('Service worker registration failed:', error);
@@ -132,7 +146,9 @@ export function InstallPrompt() {
           </p>
           {!installEvent && (
             <p className="mt-2 text-xs text-[var(--sand-200)]">
-              Ouvrez le menu du navigateur puis choisissez `Installer l&apos;application`.
+              {secureContext
+                ? "Ouvrez le menu du navigateur puis choisissez `Installer l'application`."
+                : "Vous etes en HTTP. Chrome Android ne propose pas `Installer l'application` sans HTTPS. Utilisez `Ajouter a l'ecran d'accueil` (raccourci) ou passez l'URL en HTTPS."}
             </p>
           )}
         </div>
